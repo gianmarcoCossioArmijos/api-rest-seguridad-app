@@ -41,18 +41,24 @@ class DenunciaControlador:
         finally:
             self.db.session.close()
 
-    def encontrar_por_id(self, id):
+    def actualizar_atendido(self, id):
         try:
-            registros = self.model.where(id_usuario=id).all()
-            if registros:
-                respuesta = self.esquema(many=True)
-                respuesta.dump(registros), HTTPStatus.OK
+            registro = self.model.where(id=id).first()
+            if registro:
+                registro.update(estado="atendido")
+                self.db.session.add(registro)
+                self.db.session.commit()
+                return {
+                    "mensaje": f"La denuncia con id {id} se ha actualizado como atendida"
+                }, HTTPStatus.OK
             return {
                 "mensaje": f"No se encontro denuncias del usuario con id {id}"
             }, HTTPStatus.NOT_FOUND
 
         except Exception as e:
             return {
-                "mensaje": "Ocurrio un error listar denuncias por id",
+                "mensaje": "Ocurrio un error desabilitar denuncia por id",
                 "error": str(e)
             }
+        finally:
+            self.db.session.close()

@@ -40,7 +40,7 @@ class DenunciaPorFecha(Resource):
 class DenunciaPorId(Resource):
 
     @jwt_required()
-    def get(self, id):
-        ''' Listar denuncias por id de usuario'''
+    def patch(self, id):
+        ''' Actualizar denuncia como atendida'''
         controlador = DenunciaControlador()
-        return controlador.encontrar_por_id(id)
+        return controlador.actualizar_atendido(id)

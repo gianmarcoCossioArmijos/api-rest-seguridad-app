@@ -27,7 +27,6 @@ class UsuarioRequestEsquema:
             "email": fields.String(required=True, max_length=100),
             "telefono": fields.String(required=True, max_length=9),
             "direccion": fields.String(required=True, max_length=50),
-            "rol_id": fields.Integer(required=True)
         })
 
     

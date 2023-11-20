@@ -59,13 +59,9 @@ class AlertaControlador:
 
     def encontrar_por_fecha(self, fecha):
         try:
-            registro = self.model.where(fecha=fecha).all()
-            if registro:
-                respuesta = self.esquema(many=True)
-                return respuesta.dump(registro), HTTPStatus.OK
-            return {
-                "mensaje": f"No se encontraron alertas con fecha {fecha}"
-            }, HTTPStatus.NOT_FOUND 
+            registros = self.model.where(fecha=fecha).all()
+            respuesta = self.esquema(many=True)
+            return respuesta.dump(registros), HTTPStatus.OK
 
         except Exception as e:
             return {

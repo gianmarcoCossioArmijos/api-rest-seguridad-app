@@ -1,5 +1,5 @@
 from app.modelos import ModeloBase
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship, backref
 from sqlalchemy import VARCHAR, Integer, DATE, Boolean, ForeignKey, func
 
 
@@ -18,3 +18,5 @@ class ModeloUnidad(ModeloBase):
     estado: Mapped[bool] = mapped_column(Boolean, default=True)
     id_zona: Mapped[int] = mapped_column(Integer, ForeignKey("zonas.id"))
     id_vehiculo: Mapped[int] = mapped_column(Integer, ForeignKey("vehiculos.id"), nullable=True)
+    zonas = relationship("ModeloZona", backref=backref("unidades"))
+    vehiculos = relationship("ModeloVehiculo", backref=backref("unidades"))

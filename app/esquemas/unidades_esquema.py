@@ -29,9 +29,7 @@ class UnidadRequestEsquema:
             "policia": fields.String(required=False, max_length=120),
             "operador": fields.String(required=False, max_length=120),
             "agentes": fields.String(required=True, max_length=120),
-            "descripcion": fields.String(required=True, max_length=255),
-            "id_zona": fields.Integer(required=True),
-            "id_vehiculo": fields.Integer(required=False)
+            "descripcion": fields.String(required=True, max_length=255)
         })
     
 class UnidadResponseEsquema(SQLAlchemyAutoSchema):

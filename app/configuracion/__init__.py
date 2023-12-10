@@ -15,8 +15,8 @@ class ConfiguracionBase:
 
 
 class ConfiguracionDesarrollo(ConfiguracionBase):
-    JWT_ACCESS_TOKEN_EXPIRES = timedelta(minutes=5)
-    JWT_REFRESH_TOKEN_EXPIRES = timedelta(hours=1)
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=1)
+    JWT_REFRESH_TOKEN_EXPIRES = timedelta(hours=3)
     MAIL_DEBUG = True
 
 

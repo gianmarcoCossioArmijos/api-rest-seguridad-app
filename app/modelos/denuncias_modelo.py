@@ -22,6 +22,7 @@ class ModeloDenuncia(ModeloBase):
             "tipo": self.tipo,
             "descripcion": self.descripcion,
             "telefono": self.telefono,
+            "estado": self.estado,
             "ubicacion": self.ubicacion,
             "id_usuario": self.id_usuario,
         }

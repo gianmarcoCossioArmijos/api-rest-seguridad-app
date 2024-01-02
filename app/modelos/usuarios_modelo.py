@@ -24,6 +24,7 @@ class ModeloUsuario(ModeloBase):
             "email": self.email,
             "telefono": self.telefono,
             "direccion": self.direccion,
+            "estado": self.estado,
             "rol_id": self.rol_id,
         }
 

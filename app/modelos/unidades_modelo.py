@@ -29,6 +29,7 @@ class ModeloUnidad(ModeloBase):
             "operador": self.operador,
             "agentes": self.agentes,
             "descripcion": self.descripcion,
+            "estado": self.estado,
             "id_zona": self.id_zona,
             "id_vehiculo": self.id_vehiculo,
         }

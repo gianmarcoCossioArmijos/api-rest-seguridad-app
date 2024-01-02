@@ -1,6 +1,5 @@
 from app import db
 from app.modelos.usuarios_modelo import ModeloUsuario
-from app.esquemas.usuarios_esquema import UsuarioResponseEsquema
 from http import HTTPStatus
 
 
@@ -8,13 +7,14 @@ class UsurioControlador:
     def __init__(self):
         self.db = db
         self.model = ModeloUsuario
-        self.esquema = UsuarioResponseEsquema
 
     def listar_todos(self):
         try:
             registros = self.model.where(estado=True).all()
-            respuesta = self.esquema(many=True)
-            return respuesta.dump(registros), HTTPStatus.OK
+            response = []
+            for registro in registros:
+                response.append(registro.toJson())
+            return response, HTTPStatus.OK
         except Exception as e:
             return {
                 "mensaje": f"Ocurrio un error al listar usuarios",
@@ -50,8 +50,7 @@ class UsurioControlador:
         try:
             registro = self.model.where(estado=True, id=id).first()
             if registro:
-                respuesta = self.esquema(many=False)
-                return respuesta.dump(registro), HTTPStatus.OK
+                return registro.toJson(), HTTPStatus.OK
             return {
                 "mensaje": f"No se encontro al usuario con id {id}"
             }, HTTPStatus.NOT_FOUND
@@ -69,8 +68,7 @@ class UsurioControlador:
         try:
             registro = self.model.where(estado=True, email=email).first()
             if registro:
-                respuesta = self.esquema(many=False)
-                return respuesta.dump(registro), HTTPStatus.OK
+                return registro.toJson(), HTTPStatus.OK
             return {
                 "mensaje": f"No se encontro al usuario con email {email}"
             }, HTTPStatus.NOT_FOUND

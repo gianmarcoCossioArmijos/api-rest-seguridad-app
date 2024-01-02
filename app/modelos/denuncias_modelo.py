@@ -15,3 +15,13 @@ class ModeloDenuncia(ModeloBase):
     estado: Mapped[str] = mapped_column(VARCHAR(50), default="pendiente")
     ubicacion: Mapped[str] = mapped_column(VARCHAR(100))
     id_usuario: Mapped[int] = mapped_column(Integer, ForeignKey("usuarios.id"))
+
+    def toJson(self):
+        return {
+            "id": self.id,
+            "tipo": self.tipo,
+            "descripcion": self.descripcion,
+            "telefono": self.telefono,
+            "ubicacion": self.ubicacion,
+            "id_usuario": self.id_usuario,
+        }

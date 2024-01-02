@@ -1,6 +1,5 @@
 from app import db
 from app.modelos.unidades_modelo  import ModeloUnidad
-from app.esquemas.unidades_esquema import UnidadResponseEsquema
 from http import HTTPStatus
 
 
@@ -9,13 +8,14 @@ class UnidadControlador:
     def __init__(self):
         self.db = db
         self.model = ModeloUnidad
-        self.esquema = UnidadResponseEsquema
 
     def listar_unidades(self, fecha):
         try:
             registros = self.model.where(estado=True, fecha=fecha).all()
-            respuesta = self.esquema(many=True)
-            return respuesta.dump(registros), HTTPStatus.OK
+            respuesta = []
+            for registro in registros:
+                respuesta.append(registro.toJson())
+            return respuesta, HTTPStatus.OK
 
         except Exception as e:
             return {
@@ -45,8 +45,7 @@ class UnidadControlador:
         try:
             registro = self.model.where(codigo=codigo).first()
             if registro:
-                respuesta = self.esquema(many=False)
-                return respuesta.dump(registro), HTTPStatus.OK
+                return registro.toJson(), HTTPStatus.OK
             return {
                 "mensaje": f"No se encontro la unidad con codigo {codigo}"
             }, HTTPStatus.NOT_FOUND

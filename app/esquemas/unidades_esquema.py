@@ -1,7 +1,4 @@
 from flask_restx import fields
-from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
-from app.modelos.unidades_modelo import ModeloUnidad
-
 
 class UnidadRequestEsquema:
 
@@ -31,8 +28,3 @@ class UnidadRequestEsquema:
             "agentes": fields.String(required=True, max_length=120),
             "descripcion": fields.String(required=True, max_length=255)
         })
-    
-class UnidadResponseEsquema(SQLAlchemyAutoSchema):
-
-    class Meta:
-        model = ModeloUnidad

@@ -1,6 +1,5 @@
 from app import db
 from app.modelos.denuncias_modelo  import ModeloDenuncia
-from app.esquemas.denuncias_esquema import DenunciaResponseEsquema
 from http import HTTPStatus
 
 
@@ -9,13 +8,42 @@ class DenunciaControlador:
     def __init__(self):
         self.db = db
         self.model = ModeloDenuncia
-        self.esquema = DenunciaResponseEsquema
 
-    def listar_denuncias(self, fecha):
+    def listar_denuncias(self):
+        try:
+            registros = self.model.all()
+            respuesta = []
+            for registro in registros:
+                respuesta.append(registro.toJson())
+            return respuesta, HTTPStatus.OK
+
+        except Exception as e:
+            return {
+                "mensaje": "Ocurrio un error al listar denuncias",
+                "error": str(e)
+            }, HTTPStatus.INTERNAL_SERVER_ERROR
+        
+    def listar_denuncias_fecha(self, fecha):
         try:
             registros = self.model.where(fecha=fecha).all()
-            respuesta = self.esquema(many=True)
-            return respuesta.dump(registros), HTTPStatus.OK
+            respuesta = []
+            for registro in registros:
+                respuesta.append(registro.toJson())
+            return respuesta, HTTPStatus.OK
+
+        except Exception as e:
+            return {
+                "mensaje": "Ocurrio un error al listar denuncias",
+                "error": str(e)
+            }, HTTPStatus.INTERNAL_SERVER_ERROR
+        
+    def listar_denuncias_usuario(self, id_usuario):
+        try:
+            registros = self.model.where(id_usuario=id_usuario).all()
+            respuesta = []
+            for registro in registros:
+                respuesta.append(registro.toJson())
+            return respuesta, HTTPStatus.OK
 
         except Exception as e:
             return {

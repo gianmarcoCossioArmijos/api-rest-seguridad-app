@@ -17,6 +17,16 @@ class ModeloUsuario(ModeloBase):
     estado: Mapped[bool] = mapped_column(Boolean, default=True)
     rol_id: Mapped[int] = mapped_column(Integer, ForeignKey("roles.id"))
 
+    def toJson(self):
+        return {
+            "id": self.id,
+            "nombres": self.nombres,
+            "email": self.email,
+            "telefono": self.telefono,
+            "direccion": self.direccion,
+            "rol_id": self.rol_id,
+        }
+
     def hash_clave(self):
         encriptar_clave = self.clave.encode("utf-8")
         hash_clave = hashpw(encriptar_clave, gensalt(rounds=10))

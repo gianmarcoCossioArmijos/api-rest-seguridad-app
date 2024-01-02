@@ -18,3 +18,17 @@ class ModeloUnidad(ModeloBase):
     estado: Mapped[bool] = mapped_column(Boolean, default=True)
     id_zona: Mapped[int] = mapped_column(Integer, ForeignKey("zonas.id"))
     id_vehiculo: Mapped[int] = mapped_column(Integer, ForeignKey("vehiculos.id"), nullable=True)
+
+    def toJson(self):
+        return {
+            "id": self.id,
+            "codigo": self.codigo,
+            "tipo_unidad": self.tipo_unidad,
+            "chofer": self.chofer,
+            "policia": self.policia,
+            "operador": self.operador,
+            "agentes": self.agentes,
+            "descripcion": self.descripcion,
+            "id_zona": self.id_zona,
+            "id_vehiculo": self.id_vehiculo,
+        }

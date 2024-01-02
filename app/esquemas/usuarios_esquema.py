@@ -1,8 +1,4 @@
-from flask_restx.reqparse import RequestParser
 from flask_restx import fields
-from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
-from app.modelos.usuarios_modelo import ModeloUsuario
-
 
 class UsuarioRequestEsquema:
     
@@ -28,9 +24,3 @@ class UsuarioRequestEsquema:
             "telefono": fields.String(required=True, max_length=9),
             "direccion": fields.String(required=True, max_length=50),
         })
-
-    
-class UsuarioResponseEsquema(SQLAlchemyAutoSchema):
-    class Meta:
-        model = ModeloUsuario
-        exclude = ["clave"]

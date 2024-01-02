@@ -65,6 +65,25 @@ class UsurioControlador:
         finally:
             self.db.session.close()
 
+    def encontrar_por_email(self, email):
+        try:
+            registro = self.model.where(estado=True, email=email).first()
+            if registro:
+                respuesta = self.esquema(many=False)
+                return respuesta.dump(registro), HTTPStatus.OK
+            return {
+                "mensaje": f"No se encontro al usuario con email {email}"
+            }, HTTPStatus.NOT_FOUND
+        
+        except Exception as e:
+            return {
+                "mensaje": "Ocurrio un error al listar usuario por email",
+                "error": str(e)
+            }, HTTPStatus.INTERNAL_SERVER_ERROR
+        
+        finally:
+            self.db.session.close()
+
     def actualizar(self, id, datos):
         try:
             registro = self.model.where(estado=True, id=id).first()

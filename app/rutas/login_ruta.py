@@ -42,3 +42,12 @@ class RestablecerClave(Resource):
         ''' Restablecer contraseña '''
         controlador = LoginControlador()
         return controlador.reseteo_clave(request.json)
+    
+@login_namespace.route("/actualizar")
+class RestablecerClave(Resource):
+
+    @login_namespace.expect(esquema_request.update(), validate=True)
+    def post(self):
+        ''' Actualizar contraseña '''
+        controlador = LoginControlador()
+        return controlador.actualizar_clave(request.json)

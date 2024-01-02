@@ -93,3 +93,30 @@ class LoginControlador:
         
         finally:
             self.db.session.close()
+
+    def actualizar_clave(self, datos):
+        try: 
+            email = datos["email"]
+            registro = self.model.where(estado=True, email=email).first()
+            if registro:
+                nueva_clave = datos["clave"]
+                registro.clave = nueva_clave
+                registro.hash_clave()
+                self.db.session.add(registro)
+                self.db.session.commit()
+                return {
+                    "mensaje": "La contraseña ha sido actualizada"
+                }, HTTPStatus.OK
+            return {
+                "mensaje": f"No se encontro al usuario con email {email}"
+            }, HTTPStatus.NOT_FOUND
+
+        except Exception as e:
+            self.db.session.rollback()
+            return {
+                "message": "Ocurrio un error al actualizar contraseña",
+                "error": str(e)
+            }, HTTPStatus.INTERNAL_SERVER_ERROR
+        
+        finally:
+            self.db.session.close()

@@ -25,3 +25,9 @@ class LoginRequestEsquema:
         return self.ns.model("Reseteo de Contraseña", {
             "email": fields.String(required=True)
         })
+    
+    def update(self):
+        return self.ns.model("Cambio de Contraseña", {
+            "email": fields.String(required=True),
+            "clave": fields.String(required=True, max_length=255)
+        })

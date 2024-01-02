@@ -52,3 +52,14 @@ class UsuariosPorId(Resource):
         ''' Eliminar usuario por id '''
         controlador = UsurioControlador()
         return controlador.eliminar(id)
+    
+
+@usuario_namespace.route("/<string:email>")
+@usuario_namespace.doc(security="Bearer")
+class UsuariosPorEmail(Resource):
+    
+    @jwt_required()
+    def get(self, email):
+        ''' Listar usuario por email'''
+        controlador = UsurioControlador()
+        return controlador.encontrar_por_email(email)

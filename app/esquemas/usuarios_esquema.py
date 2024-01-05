@@ -19,7 +19,6 @@ class UsuarioRequestEsquema:
     def update(self):
         return self.ns.model("Actualizar Usuario", {
             "nombres": fields.String(required=True, max_length=150),
-            "email": fields.String(required=True, max_length=100),
             "telefono": fields.String(required=True, max_length=9),
             "direccion": fields.String(required=True, max_length=50),
         })
